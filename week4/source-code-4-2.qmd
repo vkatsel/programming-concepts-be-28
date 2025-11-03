@@ -1,0 +1,43 @@
+---
+title: "Practice 4.2 Source code"
+format: html
+jupyter: python3
+execute:
+  eval: false
+  echo: true
+---
+## Live coding 1
+
+```{python}
+# 1. Створюємо словник
+user_profile = {
+    'username': 'alice',
+    'status': 'online'
+}
+print(f"Створено: {user_profile}")
+
+# 2. Доступ за ключем
+print(f"Поточний статус: {user_profile['status']}")
+
+# 3. Оновлення (бо ключ 'status' вже існує)
+user_profile['status'] = 'offline'
+print(f"Оновлено статус: {user_profile}")
+
+# 4. Додавання (бо ключа 'email' ще не існує)
+user_profile['email'] = 'alice@kse.ua'
+print(f"Додано email: {user_profile}")
+```
+
+```{python}
+# 1. Перевірка з 'in'
+print("--- Перевірка Email ---")
+if 'email' in user_profile:
+    print(f"Email: {user_profile['email']}")
+else:
+    print("Email не вказано")
+
+# 2. Перебір з .items()
+print("\n--- Повний Профіль ---")
+for key, value in user_profile.items():
+    print(f"{key} -> {value}")
+```

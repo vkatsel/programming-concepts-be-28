@@ -1,0 +1,110 @@
+---
+title: "Practice 4.1 Source code"
+format: html
+jupyter: python3
+execute:
+  eval: false
+  echo: true
+---
+
+# Live coding 1.1
+
+```{python}
+# 1. Створюємо список з даними
+daily_sales = [1500.50, 2100.00]
+print(f"Початкові дані: {daily_sales}")
+
+# 2. Виправляємо помилку (індекс 1)
+# Списки "змінювані", тому ми просто присвоюємо нове значення
+daily_sales[1] = 2150.00
+print(f"Виправлені дані: {daily_sales}")
+
+# 3. Додаємо дані за 3-й день в кінець
+daily_sales.append(1850.75)
+print(f"Додано 3-й день: {daily_sales}")
+
+# 4. Виводимо результат
+num_days = len(daily_sales) # len() - рахує кількість
+last_day_sales = daily_sales[-1] # -1 - індекс останнього елемента
+
+print(f"\n--- Результат ---")
+print(f"Всього днів відслідковано: {num_days}")
+print(f"Продажі за останній день: {last_day_sales}")
+```
+
+# Live coding 1.2
+```{python}
+sales_week = [1500.50, 2150.00, 1850.75, 2050.00, 1700.25]
+print(f"Аналізуємо ці дані: {sales_week}")
+
+total_sales = 0.0 # Створюємо "накопичувач"
+for sale in sales_week:
+    total_sales = total_sales + sale # Додаємо кожне значення
+    
+# Або використаймо функцію!
+
+total_sales = sum(sales_week)
+    
+print(f"\n--- Результат Аналізу ---")
+print(f"1. Загальна сума продажів: {total_sales:.2f} грн")
+
+print("2. Дні з низькими продажами (< 1700):")
+for sale in sales_week:
+    if sale < 1700:
+        print(f"   - Знайдено низький день: {sale} грн")
+        
+#  Знайдемо середні продажі на день
+average_sales = total_sales / len(sales_week)
+print(f"3. Середні продажі на день: {average_sales:.2f} грн")
+
+```
+
+# Live coding 2:
+
+```{python}
+print("--- Програма збору оцінок ---")
+grades = [] # 1. Створюємо порожній список
+
+# 2. Запускаємо цикл, щоб спитати 3 рази
+for i in range(3):
+    # i буде 0, 1, 2. (i+1) буде 1, 2, 3
+    grade_str = input(f"Введіть оцінку {i+1}: ")
+    grade_float = float(grade_str)
+    
+    # 3. Додаємо оцінку в список
+    grades.append(grade_float)
+
+# 4. Виводимо результат
+print(f"\nДякую! Всі оцінки зібрано: {grades}")
+```
+
+```{python}
+print("--- Програма збору оцінок ---")
+grades = [] # 1. Створюємо порожній список
+
+# 2. Запускаємо цикл, щоб спитати 3 рази
+for i in range(3):
+  while True:
+          grade_str = input(f"Введіть оцінку {i+1} (ціле число 0-12): ")
+          
+          # Перевірка 1: Це взагалі ціле число?
+          if not grade_str.isdigit():
+              print("Помилка: Введіть, будь ласка, *ціле число* (тільки цифри).")
+              continue # Починаємо 'while' цикл знову
+ 
+          # Якщо ми тут, то це точно число. Конвертуємо.
+          grade_num = int(grade_str)
+          
+          # Перевірка 2: Число входить у діапазон?
+          if 0 <= grade_num <= 12:
+              # УСПІХ! Це те, що нам треба.
+              grades.append(grade_num) # Додаємо в список
+              break # Розриваємо 'while True' і йдемо до наступного 'for'
+          else:
+              # Це число, але неправильне
+              print("Помилка: Оцінка має бути в діапазоні від 0 до 12.")
+              # 'continue' не потрібен, 'while' і так почнеться знову
+
+# 4. Виводимо результат
+print(f"\nДякую! Всі оцінки зібрано: {grades}")
+```
