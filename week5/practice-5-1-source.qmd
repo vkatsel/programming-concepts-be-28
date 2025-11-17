@@ -1,0 +1,89 @@
+---
+title: "Практична №5.1: Робота з рядками source"
+affiliation: "Основи програмування"
+author: Vadym Katsel
+date: today
+date-format: "YYYY-MM-DD"
+toc: true
+lang: ua
+format: 
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+execute:
+  eval: false
+---
+
+# Live coding 1
+
+```{python}
+code_to_check = input("Введіть код ЄДРПОУ для перевірки: ")
+
+# 1. Створюємо "прапор", який показує, чи код валідний
+is_valid = True
+
+# 2. ПЕРЕВІРКА ПРАВИЛА №1: Довжина
+if len(code_to_check) != 8:
+    print(f"Помилка: Код '{code_to_check}' має невірну довжину. Має бути 8.")
+    is_valid = False # Опускаємо прапор
+else:
+    # 3. ПЕРЕВІРКА ПРАВИЛА №2: Тільки цифри
+    # (Цю перевірку робимо, ТІЛЬКИ ЯКЩО довжина правильна)
+    
+    print("Довжина 8/8. Перевіряємо символи...")
+    
+    # Ітеруємо по "вагонах"
+    for char in code_to_check:
+        
+        # Використовуємо простий метод .isdigit() ("Це цифра?")
+        if not char.isdigit():
+            # ЯК ТІЛЬКИ ми знайшли хоч одну букву...
+            print(f"Помилка: Знайдено не-цифровий символ: '{char}'")
+            is_valid = False # Опускаємо прапор
+            break # Немає сенсу перевіряти далі, виходимо з 'for'
+
+# 4. Фінальний вердикт
+print("--- Вердикт ---")
+if is_valid:
+    print(f"Код {code_to_check} є ВАЛІДНИМ.")
+else:
+    print(f"Код {code_to_check} є НЕВАЛІДНИМ.")
+```
+
+# Live coding 2
+
+```{python}
+raw_record = "INFO: User 'alice' | TRANSACTION_ID: 831 | AMOUNT: 1,500.25$   "
+print(f"1. Client: [{raw_record}]")
+
+# 1. Весь рядок - це секції, розділені "|". Розріжемо його по "|"
+parts = raw_record.split('|')
+print(f"2. Розбили по '|': {parts}")
+# Результат: ['INFO: User \'alice\' ', ' TRANSACTION_ID: 831 ', ' AMOUNT: 1,500.25$   ']
+
+# 2. Нам потрібна остання секція. Беремо її за індексом -1.
+amount_part_dirty = parts[-1]
+print(f"3. Взяли останню частину: [{amount_part_dirty}]")
+# Результат: " AMOUNT: 1,500.25$   "
+
+# 3. Тепер у цій частині нам треба відділити "AMOUNT:" від числа.
+# Розріжемо її по ":"
+amount_split = amount_part_dirty.split(':')
+print(f"4. Розбили по ':': {amount_split}")
+
+# 4. Нам потрібна друга частина (індекс 1)
+number_dirty = amount_split[1]
+print(f"5. Взяли "брудне" число: [{number_dirty}]")
+
+# 5. І ТІЛЬКИ ТЕПЕР чистимо, як у LC1 ("Санітарія")
+clean_number = number_dirty.strip()         # -> "1,500.25$"
+clean_number = clean_number.replace(",", "")  # -> "1500.25$"
+clean_number = clean_number.replace("$", "")  # -> "1500.25"
+print(f"6. Очистили: [{clean_number}]")
+
+# 6. Конвертація!
+final_sum = float(clean_number)
+print(f"7. Фінальний float: {final_sum}")
+print(f"Доказ (сума * 2): {final_sum * 2}")
+```
